@@ -8,16 +8,13 @@ import org.testng.annotations.*;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.testng.Assert.assertTrue;
-
 public class TestClass {
     private static final Logger LOG = LoggerFactory.getLogger(TestClass.class);
     private WebDriver webDriver;
 
-
     @BeforeClass
     public void initDriver() {
-        LOG.info("Инициализация ChromeDriver");
+        LOG.info("Инициализируем ChromeDriver");
         String chromedriverExtension = System.getProperty("os.name").equals("Windows") ? ".exe" : "";
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver" + chromedriverExtension);
         webDriver = new ChromeDriver();
@@ -34,12 +31,12 @@ public class TestClass {
         button.click();
         WebElement expectedInput = webDriver.findElement(By.name("text"));
         Assert.assertEquals(expectedInput.getAttribute("value"), "hello world");
-        assertTrue(webDriver.getTitle().contains("hello world"));
+        Assert.assertEquals(webDriver.getTitle().contains("hello world"), true);
     }
 
     @AfterClass
     public void closeDriver() {
-        LOG.info("Закрытие ChromeDriver");
+        LOG.info("Закрываем ChromeDriver");
         webDriver.quit();
     }
 }
