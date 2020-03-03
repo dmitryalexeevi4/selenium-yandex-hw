@@ -6,6 +6,8 @@ import org.slf4j.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.util.concurrent.TimeUnit;
+
 public class TestClass {
     private static final Logger LOG = LoggerFactory.getLogger(TestClass.class);
     private WebDriver webDriver;
@@ -20,6 +22,7 @@ public class TestClass {
     @Test
     public void helloWorldCheck() {
         webDriver.get("https://yandex.ru/");
+        webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         WebElement input = webDriver.findElement(By.name("text"));
         input.sendKeys("руддщ цщкдв");
         WebElement button = webDriver.findElement(By.className("search2__button"));
