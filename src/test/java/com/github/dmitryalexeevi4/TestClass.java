@@ -15,7 +15,7 @@ public class TestClass {
     @BeforeClass
     public void initDriver() {
         LOG.info("Инициализация ChromeDriver");
-        String chromedriverExtension = System.getProperty("os.name").equals("Windows 10") ? ".exe" : "";
+        String chromedriverExtension = System.getProperty("os.name").startsWith("Windows") ? ".exe" : "";
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver" + chromedriverExtension);
         webDriver = new ChromeDriver();
     }
