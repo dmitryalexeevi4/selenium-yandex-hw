@@ -14,8 +14,8 @@ public class TestClass {
 
     @BeforeClass
     public void initDriver() {
-        LOG.info("Инициализируем ChromeDriver");
-        String chromedriverExtension = System.getProperty("os.name").equals("Windows") ? ".exe" : "";
+        LOG.info("Инициализация ChromeDriver");
+        String chromedriverExtension = System.getProperty("os.name").equals("Windows 10") ? ".exe" : "";
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver" + chromedriverExtension);
         webDriver = new ChromeDriver();
     }
@@ -36,7 +36,7 @@ public class TestClass {
 
     @AfterClass
     public void closeDriver() {
-        LOG.info("Закрываем ChromeDriver");
+        LOG.info("Закрытие ChromeDriver");
         webDriver.quit();
     }
 }
