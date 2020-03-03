@@ -8,19 +8,24 @@ import org.testng.annotations.*;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.testng.Assert.assertTrue;
+
 public class TestClass {
     private static final Logger LOG = LoggerFactory.getLogger(TestClass.class);
     private WebDriver webDriver;
 
+
     @BeforeClass
     public void initDriver() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+        LOG.info("Инициализация ChromeDriver");
+        String chromedriverExtension = System.getProperty("os.name").equals("Windows") ? ".exe" : "";
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver" + chromedriverExtension);
         webDriver = new ChromeDriver();
-        LOG.info("Инициализируем ChromeDriver");
     }
 
     @Test
     public void helloWorldCheck() {
+        LOG.info("Выполнение теста");
         webDriver.get("https://yandex.ru/");
         webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         WebElement input = webDriver.findElement(By.name("text"));
@@ -29,13 +34,12 @@ public class TestClass {
         button.click();
         WebElement expectedInput = webDriver.findElement(By.name("text"));
         Assert.assertEquals(expectedInput.getAttribute("value"), "hello world");
-        Assert.assertEquals(webDriver.getTitle().contains("hello world"), true);
-        LOG.info("Выполнение теста");
+        assertTrue(webDriver.getTitle().contains("hello world"));
     }
 
     @AfterClass
     public void closeDriver() {
+        LOG.info("Закрытие ChromeDriver");
         webDriver.quit();
-        LOG.info("Закрываем ChromeDriver");
     }
 }
